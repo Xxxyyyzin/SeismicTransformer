@@ -6,6 +6,8 @@ An attention-based method for seismic wavefield simulation
 1. This code is written under the Linux system.
 2. The `.f90` file inside is more convenient for terminal compilation under Linux. (There will be some problems with Windows system)
 
+**<font sizr=12>Folder and code introduction</font>**
+
 - FCN ：the network design of the FCN and the training code of the FCN.
 <br>`FCN_constants.py`: Basic parameters for FCN model training
 <br>`FCN_main.py`: Train the main program

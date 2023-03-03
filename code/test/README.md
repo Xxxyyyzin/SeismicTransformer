@@ -14,9 +14,9 @@ If you need relevant training network information, you can contact us (yanzinxyz
 <br><br>
 If you want to utilize the different fault velocity or source to gain the test result, you can adjust the following code:
 <br>
-`ib=0<br>
-isource=0<br>
-plot_result_SeisTrans(inputs_array, outputs_array100thous, labels_array, title="SeismicTrans\n100000th",sample_batch=None, ib=0, isource=0,aspect=0.2`
+`ib=0`<br>
+`isource=0`<br>
+`plot_result_SeisTrans(inputs_array, outputs_array100thous, labels_array, title="SeismicTrans\n100000th",sample_batch=None, ib=0, isource=0,aspect=0.2`
 <br>Among them,<br>
 -   `ib` indicates the number of velocity models, and the value of `ib` is from 0 to 9.
 -   `isource` indicates the number of sources, and the value of `isource` is from 0 to 2.

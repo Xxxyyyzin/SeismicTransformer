@@ -2,7 +2,7 @@ This part we introduce how to use the test data to test!
 
 -fault_data: this dataset is similar to the training dataset.
 
-<font size=10>Notice：</font>
+<font size=10>Notes：</font>
 <br>
 **1. Since the trained neural network is too large (about 435.1MB), there is no way to upload it. 
 If you need relevant training network information, you can contact us (yanzinxyz@gmail.com)\~**

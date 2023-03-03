@@ -1,0 +1,33 @@
+RUN: marmousi_SeismicTrans_Adam_l1_mean_loss_gain
+DATA: marmousi_2ms.bin
+DEVICE: 0
+MODEL: <function SeismicTrans_base_patch16_128 at 0x7efe6e5520e0>
+MODEL_NAME: SeismicTransformer
+MODEL_LOAD_PATH: None
+DROPOUT_RATE: 0.0
+ACTIVATION: <function relu at 0x7efe6eb8eef0>
+OPTIMIZER: Adam
+LOSS_NAME: l1_mean_loss_gain
+LOSS_FUNC: <function l1_mean_loss_gain at 0x7efe6e556dd0>
+BATCH_SIZE: 100
+LRATE: 0.0001
+WEIGHT_DECAY: 0
+SEED: 123
+N_STEPS: 1000000
+N_CPU_WORKERS: 1
+DATASET: <class 'datasets.SeismicBinaryDBDataset'>
+N_EXAMPLES: 30000
+VELOCITY_SHAPE: (1, 128, 128)
+GATHER_SHAPE: (1, 32, 512)
+SOURCE_SHAPE: (2, 1, 1)
+T_GAIN: 2.5
+VELOCITY_MU: 2700.0
+VELOCITY_SIGMA: 560.0
+GATHER_MU: 0.0
+GATHER_SIGMA: 1.0
+SUMMARY_FREQ: 1000
+TEST_FREQ: 20000
+MODEL_SAVE_FREQ: 20000
+SUMMARY_OUT_DIR: results/summaries/Adam/marmousi_SeismicTrans_Adam_l1_mean_loss_gain/
+MODEL_OUT_DIR: results/models/Adam/marmousi_SeismicTrans_Adam_l1_mean_loss_gain/
+DATA_PATH: ../generate_data_main/data/marmousi_2ms.bin

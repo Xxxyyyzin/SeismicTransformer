@@ -15,7 +15,7 @@ from datasets import SeismicBinaryDBDataset
 import sys
 sys.path.insert(0, '../../shared_modules/')
 from helper import DictToObj
-sys.path.insert(0, '../../Transformer/')      #transformer
+sys.path.insert(0, '../../Transformer/')      # transformer
 
 
 def load_model_SeisTrans(MODEL_LOAD_RUN, rootdir="server/",optimizer="Adam",nth_model=0,verbose=False):
@@ -100,14 +100,14 @@ def plot_result_SeisTrans(inputs_array, outputs_array, labels_array, sample_batc
     t_gain = t_gain/np.median(t_gain)
     t_gain = t_gain.reshape((1,1,1,outputs_array.shape[-1]))# along NSTEPS
 
-    #速度模型
+    # velocity model
     plt.subplot2grid((1, 5), (0, 0), colspan=2)
     plt.imshow(inputs_array[ib,0,:,:].T, vmin=vmin, vmax=vmax)
     plt.xlabel("Distance (m)")
     plt.ylabel("Depth (m)")
     plt.colorbar()
 
-    # 真实地震记录
+    # true seismic gather
     plt.subplot2grid((1, 5), (0, 2), colspan=1)
     plt.imshow((t_gain * labels_array)[ib, isource, :, :].T, aspect=aspect, cmap="Greys", vmin=gmin, vmax=gmax)
     plt.title("Ground\ntruth")
@@ -115,12 +115,12 @@ def plot_result_SeisTrans(inputs_array, outputs_array, labels_array, sample_batc
     plt.xticks(rotation=50)
 
     # plt.title("%f, %f"%(np.min(outputs_array),np.max(outputs_array)))
-    # 网络预测得到的地震记录
+    # predicted seismic gather
     plt.subplot2grid((1, 5), (0, 3), colspan=1)
     plt.imshow((t_gain * outputs_array)[ib, isource, :, :].T, aspect=aspect, cmap="Greys", vmin=gmin, vmax=gmax)
     plt.title(title)
 
-    #差分图
+    # difference
     plt.subplot2grid((1, 5), (0, 4), colspan=1)
     plt.imshow((t_gain * (labels_array - outputs_array))[ib,isource,:,:].T,aspect=aspect, cmap="Greys", vmin=gmin, vmax=gmax)
     plt.title("Difference")

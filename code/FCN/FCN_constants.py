@@ -2,7 +2,6 @@
 # Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 # Any modifications made to the original script are documented in the comments below.
 
-
 import socket
 
 import torch.nn.functional as F

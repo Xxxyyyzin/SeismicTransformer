@@ -1,20 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-
-# This module defines a custom pytorch batch sampler, which repeats the sampling of a
-# training dataset over multiple epochs. This sampler is used in main.py.
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 
 
 from torch.utils.data import Sampler
 from torch._six import int_classes as _int_classes
 
-
-
-
-
-
-# This class batches up examples over n_epochs.
 
 class BatchSampler(Sampler):
     r"""Wraps another sampler to yield a mini-batch of indices.

@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+@Time ： 2021/8/25 10:27
+@Auth ： yyyzzzin
+@File ：main_SeismicTrans.py
+@IDE ：PyCharm
+"""
 import os
 import sys
 import numpy as np

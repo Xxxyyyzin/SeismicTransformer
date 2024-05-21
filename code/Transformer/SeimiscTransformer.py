@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 @Time ： 2021/8/5 12:06
-@Auth ： YanJinXiang
+@Auth ： xxxyyyzin
 @File ：main_SeismicTrans.py
 @IDE ：PyCharm
 """
+
 from functools import partial
 import torch
 import torch.nn as nn
@@ -67,14 +68,14 @@ class PatchEmbed(nn.Module):
         #proj(x): [batch,3,224,224] ->[batch,768,14,14]
         # flatten: [B, C, H, W] -> [B, C, HW]
         # transpose: [B, C, HW] -> [B, HW, C]
-        x = self.proj(x).flatten(2).transpose(1, 2)    #flatten(2)从索引为2开始展开
+        x = self.proj(x).flatten(2).transpose(1, 2)    
         x = self.norm(x)
         return x
 
-#attention机制
+# Attention mechanism
 class Attention(nn.Module):
     def __init__(self,
-                 dim,   # 输入token的dim token向量序列：[num_token,token_dim]
+                 dim,   # Input the dim token vector sequence for the token: [num_token, token_dim]
                  num_heads=8,
                  qkv_bias=False,
                  qk_scale=None,
@@ -105,7 +106,7 @@ class Attention(nn.Module):
         x = self.proj_drop(x)
         return x
 
-#Encoder Block中的MLP Block
+# MLP Block in Encoder Block
 class Mlp(nn.Module):
     """
     MLP as used in Vision Transformer, MLP-Mixer and related networks
@@ -127,17 +128,17 @@ class Mlp(nn.Module):
         x = self.drop(x)
         return x
 
-#一个Encoder Block
+# An Encoder Block
 class Block(nn.Module):
     def __init__(self,
-                 dim,   # 输入token的dim token向量序列：[num_token,token_dim]
+                 dim,   # Input the dim token vector sequence for the token: [num_token, token_dim]
                  num_heads,
-                 mlp_ratio=4.,   #mlp第一个全连接层的输出节点个数是输入的4倍
+                 mlp_ratio=4.,   # The number of output nodes in the first fully connected layer of MLP is four times that of the input
                  qkv_bias=False,
                  qk_scale=None,
                  drop_ratio=0.,
                  attn_drop_ratio=0.,
-                 drop_path_ratio=0.,   #encoder block中的drop-path
+                 drop_path_ratio=0.,   # Drop path in encoder block
                  act_layer=nn.GELU,
                  norm_layer=nn.LayerNorm):
         super(Block, self).__init__()
@@ -145,7 +146,7 @@ class Block(nn.Module):
         self.attn = Attention(dim, num_heads=num_heads, qkv_bias=qkv_bias, qk_scale=qk_scale,
                               attn_drop_ratio=attn_drop_ratio, proj_drop_ratio=drop_ratio)   #multi-head attention
         # NOTE: drop path for stochastic depth, we shall see if this is better than dropout here
-        self.drop_path = DropPath(drop_path_ratio) if drop_path_ratio > 0. else nn.Identity()  #nn.Identity()不做任何操作
+        self.drop_path = DropPath(drop_path_ratio) if drop_path_ratio > 0. else nn.Identity() # Nn Identity () does not take any action
         self.norm2 = norm_layer(dim)
         mlp_hidden_dim = int(dim * mlp_ratio)
         self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=act_layer, drop=drop_ratio)
@@ -167,8 +168,8 @@ class SeismicTransformer(nn.Module):
             patch_size (int, tuple): patch size
             in_c (int): number of input channels
             embed_dim (int): embedding dimension
-            depth (int): depth of transformer                     /encoder block堆叠的次数
-            num_heads (int): number of attention heads           /multi-heads中的head数
+            depth (int): depth of transformer                    # The number of times encoder blocks are stacked
+            num_heads (int): number of attention heads           # The number of heads in multi heads
             mlp_ratio (int): ratio of mlp hidden dim to embedding dim
             qkv_bias (bool): enable bias for qkv if True
             qk_scale (float): override default qk scale of head_dim ** -0.5 if set
@@ -185,21 +186,21 @@ class SeismicTransformer(nn.Module):
         norm_layer = norm_layer or partial(nn.LayerNorm, eps=1e-6)
         act_layer = act_layer or nn.GELU
 
-        self.patch_embed = embed_layer(velocity_size=velocity_size, patch_size=patch_size, in_c=in_c, embed_dim=embed_dim)  #patch embedding
+        self.patch_embed = embed_layer(velocity_size=velocity_size, patch_size=patch_size, in_c=in_c, embed_dim=embed_dim)  # patch embedding
         num_patches = self.patch_embed.num_patches
 
-        self.pos_embed = nn.Parameter(torch.zeros(1, num_patches , embed_dim))   #position embedding
-        self.pos_drop = nn.Dropout(p=drop_ratio)  #输入transformer前的dropout
+        self.pos_embed = nn.Parameter(torch.zeros(1, num_patches , embed_dim))   # position embedding
+        self.pos_drop = nn.Dropout(p=drop_ratio) # Dropout before entering transformer
 
         dpr = [x.item() for x in torch.linspace(0, drop_path_ratio, depth)]
-        # stochastic depth decay rule（Encoder Block中的DropPath）
+        # Stochastic depth cause rule (DropPath in Encoder Block)
         self.blocks = nn.Sequential(*[
             Block(dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, qk_scale=qk_scale,
                   drop_ratio=drop_ratio, attn_drop_ratio=attn_drop_ratio, drop_path_ratio=dpr[i],
                   norm_layer=norm_layer, act_layer=act_layer)
             for i in range(depth)
-        ])  #encoder block的堆叠
-        self.norm = norm_layer(embed_dim)  #transformer encoder后的layer norm
+        ])  # Stacking of encoder blocks
+        self.norm = norm_layer(embed_dim)  # Layer norm after transformer encoder
         self.relu= F.relu
 
         ####ENCODER
@@ -279,9 +280,9 @@ class SeismicTransformer(nn.Module):
 
     def forward(self,x,s):
         x = self.patch_embed(x)  # [B,1,128,128]->[B, 64, 768]
-        x = self.pos_drop(x + self.pos_embed)   #加上position embedding后再dropout
-        x = self.blocks(x)  #transformer encoder （Encoder Block X L(12) ）
-        x = self.norm(x)   #layer norm
+        x = self.pos_drop(x + self.pos_embed)   # Add position embedding before dropout
+        x = self.blocks(x)  # transformer encoder （Encoder Block X L(12) ）
+        x = self.norm(x)   # layer norm
         B,C,H,W = x.shape[0],x.shape[2],int(math.sqrt(x.shape[1])),int(math.sqrt(x.shape[1]))
         x = x.reshape(B,C,H,W)    #[B,768,8,8]
 

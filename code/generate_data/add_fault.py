@@ -1,15 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov  6 19:27:19 2018
-
-@author: bmoseley
-"""
-
-
-# This module adds random faults to 2D velocity models, and is called by
-# generate_velocity_models.py
-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 
 import numpy as np
 import matplotlib.pyplot as plt

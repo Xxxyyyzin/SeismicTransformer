@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
 """
 @Time ： 2021/9/15 12:06
 @Auth ：Xxxyyyzin

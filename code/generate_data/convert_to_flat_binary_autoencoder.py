@@ -1,11 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec 12 22:36:42 2018
-
-@author: bmoseley
-"""
-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 
 # This script converts the faulted velocity models, their simulated receiver gathers 
 # and the source location for each gather into a flat, fixed record length binary file

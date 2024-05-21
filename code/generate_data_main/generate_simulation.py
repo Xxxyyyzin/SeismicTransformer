@@ -1,3 +1,6 @@
+# DISCLAIMER: This script is revised based on Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
+
 import shutil
 import sys
 import numpy as np

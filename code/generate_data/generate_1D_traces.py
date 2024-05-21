@@ -1,11 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov  6 18:34:35 2018
-
-@author: bmoseley
-"""
-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 
 # This module generates random 1D profiles of horizontally layered velocity models,
 # and is called by generate_velocity_models.py

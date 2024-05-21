@@ -1,5 +1,5 @@
 """
-This script is :Transformer模型下绘制单个速度模型比较，含差分图
+This script is: Draw a comparison of individual velocity models under the Transformer model, including differential plots
 """
 import numpy as np
 import matplotlib.pyplot as plt

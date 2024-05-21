@@ -1,23 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-
-# This module defines the conditional autoencoder network, which is defined through a pytorch model,
-# wrapped by the AE_r class. 
-
-# This class is selected in constants_AutoEncoder.py and is called inside the training loop
-# of main.py. Its hyperparameters are provided by constants_AutoEncoder.py.
-
-# This module also defines alternative network designs used for testing the sensitivity
-# of the accuracy of our approach to different network architectures.
-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
+# Any modifications made to the original script are documented in the comments below.
 
 import torch
 import torch.nn as nn  
 import numpy as np
     
-
-
 
 class AE_r(nn.Module):
     def __init__(self, c):
@@ -532,13 +520,13 @@ if __name__ == "__main__":
         print("Total number of parameters: %i"%(total_params))
         print("Total number of trainable parameters: %i"%(total_trainable_params))
 
-        #设置零矩阵（速度型和震源信息）来判断神经网络每一层的输入和输出信息
+
         x = torch.zeros((c.BATCH_SIZE,)+c.VELOCITY_SHAPE)
         s = torch.zeros((c.BATCH_SIZE,)+c.SOURCE_SHAPE)
 
-        sizes = trace_static_model(model, x, s, verbose=False)   #此函数用于打印每一层的信息
+        sizes = trace_static_model(model, x, s, verbose=False)   
         print(len(sizes))
-        print(model(x,s)[0].shape)       #输出的大小[batch,channel,width,height]
+        print(model(x,s)[0].shape)       
         # torch.Size([10, 1, 32, 512])
         print()
     

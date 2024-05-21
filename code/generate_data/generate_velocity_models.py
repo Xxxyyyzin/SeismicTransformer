@@ -1,11 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov  6 18:28:31 2018
-
-@author: bmoseley
-"""
-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 
 # This script generates random 2D velocity models to be used as training examples for both our networks.
 # It can either generate random horizontally layered velocity models (used for the WaveNet), or 

@@ -1,3 +1,6 @@
+# DISCLAIMER: This script is revised based on Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
+
 import io
 import sys
 import matplotlib
@@ -94,8 +97,7 @@ def main():
 
     # np.random.seed(c.random_seed)  # for reproducibility
     vm_s = [generate_1D_random_velocity_trace(c) for _ in range(c.n_examples)]
-    # type(vm_s)=numpy
-    # vm_s:n_example组数据，每组第一列数据是层厚度，第二列数据是每层速度
+
 
     # CONVERT TO 2D, ADD FAULTS (MULTIPROCESSING)
 
@@ -114,9 +116,7 @@ def main():
             m = vm_s[i]  # generated model
             vs = []  # velocity axis
             cum_ln_s, vi = np.cumsum(m[0]), 0  # cumulative counters
-            # cum_ln_s 将生成的速度模型(vm_s:n_example组数据，每组第一列数据是层厚度，第二列数据是每层速度)
-            # 第一部分累加，如vm_s=(array(45,4,24,11,29,13,2),array(1500.00,....))
-            # cum_ln_s=[45,49,73,84,113,126,128]
+            
             for n in ns:
                 if n > cum_ln_s[vi]: vi += 1
                 vs.append(m[1][vi])
@@ -124,7 +124,6 @@ def main():
 
             # GENERATE 2D VELOCITY MODEL (X,Z only)
             velocity = np.zeros((c.vm_ns["x"], c.vm_ns["z"]))  # c.vm_ns["x"]=128;c.vm_ns["z"])=128
-            # 生成128X128的零矩阵
             for ix in np.arange(c.vm_ns["x"]): velocity[ix, :] = vs
 
             # ADD FAULT

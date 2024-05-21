@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @Time ： 2021/9/15 12:06
-@Auth ： YanJinXiang
+@Auth ： Xxxyyzin
 @File ：main_SeismicTrans.py
 @IDE ：PyCharm
 """

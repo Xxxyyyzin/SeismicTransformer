@@ -1,5 +1,5 @@
 """
-This script is :AutoEncoder模型下的绘制单个速度模型及其预测（和transformer用的analysis.py有差异）
+This script is: Drawing a single velocity model and its prediction under the AutoEncoder model
 """
 import numpy as np
 import matplotlib.pyplot as plt

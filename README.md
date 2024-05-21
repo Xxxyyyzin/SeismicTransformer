@@ -40,9 +40,8 @@ into binary data, and this binary data is superimposed on the data generated for
 - generate_data_main: generate the training and testing datasets. 
 
 - plot: function library for plot the relevant figures.
-<br>The `train_information` folder is a plot of training loss and evaluation parameters.
+<br>The `train_information` folder is a plot of training loss.
 <br>The `.py` file under the `plot` folder is mainly a plot of the **dataset** and the **predicted seismic record**:
-<br><br>`criterion_*.py`: calculate evaluation parameters
 <br>`ST_*.py`: plotting predicted seismic records under the SeismicTransformer model
 <br>`autoencoder_plot.py`: plot predicted seismic records under the FCN model, single map
 <br>`AE_different_iteration.py`: plot the predicted seismic records under the FCN model with different iterations

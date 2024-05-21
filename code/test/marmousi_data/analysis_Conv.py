@@ -1,5 +1,5 @@
 """
-This script is :AutoEncoder模型下绘制的外部函数
+This script is: External functions drawn under the AutoEncoder model
 """
 import os
 import pickle

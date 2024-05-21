@@ -101,7 +101,7 @@ def main():
 
     # CONVERT TO 2D, ADD FAULTS (MULTIPROCESSING)
 
-    batches = np.array_split(np.arange(c.n_examples), np.max([1, c.n_examples // 100]))  # 将n_example分批，便于后续进程分配
+    batches = np.array_split(np.arange(c.n_examples), np.max([1, c.n_examples // 100]))  
     print("%i batches created" % (len(batches)))
 
     def generate_examples(example_indices):
@@ -109,7 +109,7 @@ def main():
         # FOR EACH VELOCITY MODEL
         print(example_indices)
 
-        ns = np.arange(c.vm_ns["z"], dtype=float)  # sample axis 坐标轴, ns=128
+        ns = np.arange(c.vm_ns["z"], dtype=float)  
         for i in example_indices:
 
             # GENERATE 1D VELOCITY PROFILE
@@ -130,7 +130,7 @@ def main():
             # np.random.seed(c.random_seed + i)  # set seed (distributed!)
             velocity = add_fault(c, velocity, fill_fault=True, plot=False)
 
-            velocity[velocity > 4400.] = 4400.  # 大速度为4400
+            velocity[velocity > 4400.] = 4400. 
 
             ### SAVE VELOCITY MODELS
             velocity = velocity.astype(np.float32)

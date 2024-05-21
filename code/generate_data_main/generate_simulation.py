@@ -44,7 +44,7 @@ DELTAX = 5.  # grid spacing (m)
 DELTAY = 5.  # grid spacing (m)
 NPOINTS_PML = 10  # number of PML points
 NSTEPS = 512 * 4
-DELTAT = 0.0005  # sample rate for FD modelling (s)   正演模拟的采样率，即每过0.0005s记录波场和炮集信息
+DELTAT = 0.0005  # sample rate for FD modelling (s)  
 ds = 4  # downsample factor (for pre-processing)
 # np.random.seed(SEED)
 
@@ -169,13 +169,13 @@ def worker_function(taskQ, resultQ):
         try:
             ivel = taskQ.get(block=True, timeout=10)
         # try to get the next task, allow some time for process clash (ivel number)
-        # # 获取队列，timeout等待时间  get(self, block=True,timeout=None) block表示是否等待 timeout表示等待多久
+        
         except queue.Empty:
             break  # kill process if no more tasks left
         example = generate_example(ivel)
         resultQ.put(example)
         # push the example to the results queue
-        ## 写入队列 put(self, item, block=True,timeout=None) block表示是否等待 timeout表示等待多久
+       
 
 def generate_simulation():
     # clear output directory for all simulations

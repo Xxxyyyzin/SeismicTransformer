@@ -1,10 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan  1 19:26:35 2019
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 
-@author: bmoseley
-"""
 
 # This module defines a custom pytorch batch sampler, which repeats the sampling of a
 # training dataset over multiple epochs. This sampler is used in main.py.

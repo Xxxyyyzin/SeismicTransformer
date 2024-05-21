@@ -1,5 +1,7 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
+# Any modifications made to the original script are documented in the comments below.
+
 import sys
 import os
 import time
@@ -66,13 +68,11 @@ class Trainer:
         np.random.seed(c.SEED)
 
         # clear directories
-        c.get_outdirs()  # 将这个函数的内部函数进行修改，把清空文件夹的函数注释掉
-        # （不能清空文件夹不然，每次一运行就会将之前的文件全部删除）
+        c.get_outdirs() 
         c.save_constants_file()  # saves torch seed too
         print(c)
 
         # set device/ threads
-        # 指认设备和进程数
         device = torch.device("cuda:%i" % (c.DEVICE) if torch.cuda.is_available() else "cpu")
         print("Device: %s" % (device))
         torch.backends.cudnn.benchmark = False
@@ -170,10 +170,11 @@ class Trainer:
         trainloader_iterator = iter(trainloader)
 
 
-        ######################
-        #####采用不同的优化器###
-        ######################
+        ##################################
+        #####Using different optimizers###
+        ##################################
 
+        # Modifications: This part includes additional code for training using different loss functions.
         # optimizer=torch.optim.Adadelta(model.parameters(), lr=1.0, rho=0.9, eps=1e-06, weight_decay=0)
         # optimizer=torch.optim.RMSprop(model.parameters(), lr=0.01, alpha=0.99, eps=1e-08, weight_decay=0, momentum=0, centered=False)
         optimizer = torch.optim.Adam(model.parameters(), lr=c.LRATE, weight_decay=c.WEIGHT_DECAY)
@@ -228,7 +229,7 @@ class Trainer:
                     gpu_time, wait_time = 0., 0.
 
                 if (i + 1) % c.SUMMARY_FREQ == 0:
-                    print("---------------training begin---------------")  # 后期加的！
+                    print("---------------training begin---------------")  
 
                     rate = c.SUMMARY_FREQ / (time.time() - start1)
 
@@ -282,15 +283,15 @@ class Trainer:
                                 (time.time() - start0) / (60 * 60),
                                 time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
                                 c.RUN))
-                    print("---------------training end---------------")  # 后期加的！
-                    print()  # 后期加的！
+                    print("---------------training end---------------")  
+                    print() 
 
                     start1 = time.time()
 
                 ## TEST STATISTICS
 
                 if (i + 1) % c.TEST_FREQ == 0:
-                    print("---------------testing begin---------------")  # 后期加的！
+                    print("---------------testing begin---------------")  
 
                     with torch.no_grad():  # faster inference without tracking
 
@@ -323,7 +324,8 @@ class Trainer:
                         if (i + 1) % (10 * c.TEST_FREQ) == 0:
                             f = plot_result(inputs_array, outputs_array, labels_array, sample_batch)
                             writer.add_figure("compare/test", f, i + 1, close=True)
-                        # print函数为后期加的！
+
+                      
                         print(
                             '[epoch: %i/%i, batch: %i/%i i: %i] loss: %.4f  rate: %.1f elapsed: %.2f hr %s %s' % (
                                 ie + 1,
@@ -337,13 +339,13 @@ class Trainer:
                                 time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
                                 c.RUN
                             ))
-                    print("---------------testing end-----------------")  # 后期加的！
-                    print()  # 后期加的！
+                    print("---------------testing end-----------------")  
+                    print()  
 
                 ## SAVE
 
                 if (i + 1) % c.MODEL_SAVE_FREQ == 0:
-                    print("------------Saving model begin-------------")  # 后期加的！
+                    print("------------Saving model begin-------------") 
 
                     model.eval()
 
@@ -356,7 +358,7 @@ class Trainer:
                     # 'model_state_dict': model.state_dict(),
                     # }, c.MODEL_OUT_DIR+"model_%.8i.torch"%(i + 1))
 
-                    # 加上关于优化器的
+                   
                     torch.save({
                         'i': i + 1,
                         'model_state_dict': model.state_dict(),
@@ -364,14 +366,14 @@ class Trainer:
 
 
                     model.to(device)
-                    print("-------------Saving model end--------------")  # 后期加的！
-                    print()  # 后期加的！
+                    print("-------------Saving model end--------------")  
+                    print()  
 
                 wait_start = time.time()
 
         del trainloader_iterator, testloader_iterator
 
-        # 训练、测试损失保存
+        # Modifications: This part includes code for training, testing, and saving loss values.
         with open(c.MODEL_OUT_DIR + "training_%s_%s_%s_%.8i.txt" % (c.MODEL_NAME, c.LOSS_NAME, c.OPTIMIZER, i + 1),
                   'w') as f:
             for _ in trainingloss:

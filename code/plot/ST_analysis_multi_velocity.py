@@ -1,5 +1,5 @@
 """
-This script is :Transformer模型下绘制多个速度模型比较，含差分图
+This script is: Comparing multiple velocity models under the Transformer model, including differential plots
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -27,7 +27,7 @@ model100thous, c_dict100thous = load_model_SeisTrans("fault_SeismicTrans_Adam_l1
 d = load_testdataset_SeisTrans("fault_2ms_r_generalisation.bin",rootdir="../generate_data_main/data/", N_EXAMPLES=30, c_dict=c_dict100thous, verbose=False)   #N_EXAMPLES 表示数据集下有多少个数据
 
 # Get batches of test data
-irange = np.arange(30)   #加载测试集的数量
+irange = np.arange(30)   
 
 d.open_file_reader()
 samples = [d[i] for i in irange]
@@ -50,9 +50,9 @@ with torch.no_grad():# faster inference without tracking
 
 # un-normalise velocity
 inputs_array = c_dict100thous["VELOCITY_SIGMA"]*inputs_array + c_dict100thous["VELOCITY_MU"]
-# ibs = np.arange(0, 3* 4, 3) + 0  # as velocity model goes in threes 等差数列确定画哪些图
+# ibs = np.arange(0, 3* 4, 3) + 0 
 #[0 1 2 3 4 5 6 7]
-ibs=np.array([2,11,25])    #自定义画第几张图
+ibs=np.array([2,11,25])    
 
 f = plt.figure(figsize=0.8 * np.array([14.5, 12.5]))
 
@@ -64,18 +64,18 @@ for i in range(0, 3):
     nrow = 4
 
     ax = f.add_axes([1 / ncol, (nrow - (i+1)) / nrow, 2 / ncol, 1 / nrow])  # xmin, ymin, dx, and dy
-    im0 = plt.imshow(inputs_array[ib, 0, :, :].T, vmin=CLIM[0], vmax=CLIM[1])  # 速度模型
-    plt.scatter(NX * source_array[ib, 0, :, :], NX * source_array[0, 1, :, :], c="white")  # 加上source
+    im0 = plt.imshow(inputs_array[ib, 0, :, :].T, vmin=CLIM[0], vmax=CLIM[1])  
+    plt.scatter(NX * source_array[ib, 0, :, :], NX * source_array[0, 1, :, :], c="white") 
 
 
     if i >=2:
-        plt.xticks(np.arange(0, NX, 40), (DX * np.arange(0, NX, 40)).astype(np.int))   #最后两幅，加上横轴坐标
-        plt.xlabel("Distance (m)")     #最后两幅，加上横轴单位
+        plt.xticks(np.arange(0, NX, 40), (DX * np.arange(0, NX, 40)).astype(np.int))  
+        plt.xlabel("Distance (m)")    
     else:
-        plt.xticks([])   #其他位置不加
+        plt.xticks([])  
 
-    plt.yticks(np.arange(0, NZ, 40)[::-1], (DZ * np.arange(0, NZ, 40)[::-1]).astype(np.int))   #最左边的加上纵坐标
-    plt.ylabel("Depth (m)")     #最左边的加上纵轴单位
+    plt.yticks(np.arange(0, NZ, 40)[::-1], (DZ * np.arange(0, NZ, 40)[::-1]).astype(np.int))   
+    plt.ylabel("Depth (m)")     
     plt.xlim(0, NX - 1)
     plt.ylim(NZ - 1, 0)
     plt.title("(%s)" % (letters[i]))
@@ -89,8 +89,8 @@ for i in range(0, 3):
     if i == 0:
         plt.title("Ground\ntruth")
     if i >=2:
-        plt.xticks(np.arange(0, NREC, 8), (DX * DELTARECi * np.arange(0, NREC, 8)).astype(np.int))   #最后两幅，加上横轴坐标
-        plt.xlabel("Receiver offset (m)")    #最后两幅，加上横轴名称
+        plt.xticks(np.arange(0, NREC, 8), (DX * DELTARECi * np.arange(0, NREC, 8)).astype(np.int))   
+        plt.xlabel("Receiver offset (m)")   
         plt.xticks(rotation=50)
 
     # gather (NN5)
@@ -112,7 +112,7 @@ for i in range(0, 3):
         plt.title("Difference")
 
 
-    if i == 0:      #在第一幅最右边加上色彩条
+    if i == 0:      
         ax = f.add_axes([7.4 / ncol, 3.1 / nrow, 0.15 / ncol, 0.8 / nrow])
         cb = f.colorbar(im0, cax=ax)
         cb.ax.set_ylabel('Velocity ($\mathrm{ms}^{-1}$)')
@@ -121,7 +121,7 @@ for i in range(0, 3):
         cb = f.colorbar(im1, cax=ax, aspect=0.01)
         cb.ax.set_ylabel('Pressure (arb)')
 
-    # 每一幅图的评价值
+    
     print(i)
     value_trans_i=EvaluationValueALL_single(labels_array[ib,0,:,:],outputs_array100thous[ib,0,:,:],irange)
     print(value_trans_i)

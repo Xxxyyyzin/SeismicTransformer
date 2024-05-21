@@ -1,12 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov 20 16:57:42 2018
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
 
-@author: bmoseley
-"""
-
-# This module defines various loss functions in pytorch.
 import math
 
 import numpy as np

@@ -1,23 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
+# Any modifications made to the original script are documented in the comments below.
 
 
-# This module defines various loss functions in pytorch.
 import math
-
 import numpy as np
 import torch
 
-# # #ImportError: cannot import name 'Constants'
-# from constants_SeismicTrans import Constants
-# c=Constants()
-
-
-# Note: trainer passes arguments in the following order: loss(*labels, *outputs, constants)
-
-
-
-#yixiugai
 def l2_mean_loss(a, b, c=None):
     return torch.mean(torch.pow((a - b) , 2))
 

@@ -1,13 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-
-# This module defines the Constants object, which defines all of the hyperparameters
-# used when defining and training the conditional autoencoder network.
-# It also defines helper functions for easily saving the hyperparameter values
-# for each training run.
-# This class is used by main.py when training the autoencoder model, and is passed to
-# datasets.py and models.py too.
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
+# Any modifications made to the original script are documented in the comments below.
 
 
 import socket

@@ -1,5 +1,5 @@
 """
-This script is :Transformer模型下绘制的外部函数
+This script is: The external function drawn under the Transformer model
 """
 import os
 import pickle

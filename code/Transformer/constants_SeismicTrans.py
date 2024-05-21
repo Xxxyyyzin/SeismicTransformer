@@ -3,26 +3,16 @@
 # -*- coding: utf-8 -*-
 """
 @Time ： 2021/9/15 12:06
-@Auth ： YanJinXiang
+@Auth ：Xxxyyyzin
 @File ：main_SeismicTrans.py
 @IDE ：PyCharm
 """
-# This module defines the Constants object, which defines all of the hyperparameters
-# used when defining and training the conditional autoencoder network.
-# It also defines helper functions for easily saving the hyperparameter values
-# for each training run.
-# This class is used by main.py when training the autoencoder model, and is passed to
-# datasets.py and models.py too.
-
 
 import socket
-
 import torch.nn.functional as F
 from SeimiscTransformer import SeismicTrans_base_patch16_128
 import losses
-
 from datasets import SeismicBinaryDBDataset
-
 import sys
 
 sys.path.insert(0, '../shared_modules/')

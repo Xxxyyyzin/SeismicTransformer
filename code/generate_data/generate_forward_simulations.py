@@ -63,7 +63,7 @@ DELTAX = 5. # grid spacing (m)
 DELTAY = 5. # grid spacing (m)
 NPOINTS_PML = 10 # number of PML points
 NSTEPS = 512*4
-DELTAT = 0.0005 # sample rate for FD modelling (s)   正演模拟的采样率，即每过0.0005s记录波场和炮集信息
+DELTAT = 0.0005 # sample rate for FD modelling (s)   
 ds = 4     # downsample factor (for pre-processing)
 np.random.seed(SEED)
 

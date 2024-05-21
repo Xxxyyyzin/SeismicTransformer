@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+@Time ： 2021/9/15 12:06
+@Auth ： Xxxyyzin
+@File ：main_SeismicTrans.py
+@IDE ：PyCharm
+"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

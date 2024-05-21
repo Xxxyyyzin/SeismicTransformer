@@ -5,6 +5,7 @@
 # It can either generate random horizontally layered velocity models (used for the WaveNet), or 
 # random horizontally layered velocity models with a random fault (used for the conditional autoencoder).
 # The velocity models are generated in parallel using python multiprocessing and are stored in velocity/.
+
 import io
 import sys
 import matplotlib
@@ -112,11 +113,10 @@ if __name__ == "__main__":
     np.random.seed(c.random_seed)# for reproducibility
     vm_s = [generate_1D_random_velocity_trace(c) for _ in range(c.n_examples)]
     #type(vm_s)=numpy
-    #vm_s:n_example组数据，每组第一列数据是层厚度，第二列数据是每层速度
     
     # CONVERT TO 2D, ADD FAULTS (MULTIPROCESSING)
 
-    batches = np.array_split(np.arange(c.n_examples), np.max([1, c.n_examples // 100]))   #将n_example分批，便于后续进程分配
+    batches = np.array_split(np.arange(c.n_examples), np.max([1, c.n_examples // 100]))   
     print("%i batches created"%(len(batches)))
     
     def generate_examples(example_indices):
@@ -124,16 +124,14 @@ if __name__ == "__main__":
         # FOR EACH VELOCITY MODEL
         print(example_indices)
         
-        ns = np.arange(c.vm_ns["z"], dtype=float) # sample axis 坐标轴, ns=128
+        ns = np.arange(c.vm_ns["z"], dtype=float) 
         for i in example_indices:
             
             # GENERATE 1D VELOCITY PROFILE
             m = vm_s[i]      # generated model
             vs = []         # velocity axis
             cum_ln_s, vi = np.cumsum(m[0]), 0     # cumulative counters
-            #cum_ln_s 将生成的速度模型(vm_s:n_example组数据，每组第一列数据是层厚度，第二列数据是每层速度)
-            # 第一部分累加，如vm_s=(array(45,4,24,11,29,13,2),array(1500.00,....))
-            #cum_ln_s=[45,49,73,84,113,126,128]
+
             for n in ns:
                 if n > cum_ln_s[vi]: vi += 1
                 vs.append(m[1][vi])

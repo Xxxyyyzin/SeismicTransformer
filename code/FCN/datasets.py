@@ -1,17 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov 13 14:12:01 2018
-
-@author: bmoseley
-"""
-
-# This module defines a SeismicDataset class for easily loading the binary data
-# stored in ../generate_data/ as pytorch tensors suitable for training and testing
-# the conditional autoencoder network in main.py.
-# This class is used in main.py to load training and test data, and its hyperparameters are provided
-# by constants_AutoEncoder.py.
-
+# DISCLAIMER: This script is borrowed from Moseley (2018-2020).
+# Source: [https://github.com/benmoseley/seismic-simulation-complex-media]
+# Any modifications made to the original script are documented in the comments below.
 
 import sys
 import matplotlib
